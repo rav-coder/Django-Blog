@@ -4,11 +4,13 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.db.models import Sum
 
-from django.db.models import F, Value, CharField
-from django.db.models.functions import Concat, Cast
+from django.contrib import admin
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from .models import Emotion 
-from .models import  Fitness, Dairy, Entry, EntryAbout, EntryEmotion, Person
+from .models import  Fitness, Entry, Person
 
 UserAdmin.list_display = ('email', 'first_name', 'last_name')
 UserAdmin.list_filter = []
@@ -18,15 +20,22 @@ admin.site.unregister(Group)
 
 ##################################
 
-admin.site.register(User, UserAdmin)
+# admin.site.register(User, UserAdmin)
 
-# Register your models here.
-class EmotionAdmin(admin.ModelAdmin):
-    list_display = ['subtype', 'type']
-    list_filter = ['type']
-    search_fields = ['subtype']
+# # Register your models here.
+# class EmotionAdmin(admin.ModelAdmin):
+#     list_display = ['subtype', 'type']
+#     list_filter = ['type']
+#     search_fields = ['subtype']
 
-admin.site.register(Emotion, EmotionAdmin)
+#     def save_model(self, request, obj, form, change):
+#         if obj.type not in ['mad', 'sad', 'scared', 'peaceful', 'powerful', 'joyful']:
+#             messages.error(request, f'{obj.type} is not an allowed type of emotion.')
+#             return HttpResponseRedirect(reverse('admin:diary_emotion_add'))
+#         else:
+#             super().save_model(request, obj, form, change)
+
+# admin.site.register(Emotion, EmotionAdmin)
 
 ##################################
 
